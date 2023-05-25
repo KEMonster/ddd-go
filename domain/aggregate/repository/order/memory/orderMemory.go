@@ -2,10 +2,10 @@ package memory
 
 import (
 	"fmt"
+	"github.com/KEMonster/ddd-go/domain/aggregate/repository/order"
 	"sync"
 
 	"github.com/KEMonster/ddd-go/domain/aggregate/entity"
-	"github.com/KEMonster/ddd-go/domain/aggregate/repository"
 	"github.com/google/uuid"
 )
 
@@ -32,7 +32,7 @@ func (mr *OrderMemoryRepository) Add(c entity.OrderPo) error {
 	}
 	// Make sure Order isn't already in the repository
 	if _, ok := mr.Order[c.GetID()]; ok {
-		return fmt.Errorf("order already exists: %w", repository.ErrFailedToAddOrder)
+		return fmt.Errorf("order already exists: %w", order.ErrFailedToAddOrder)
 	}
 	mr.Lock()
 	mr.Order[c.GetID()] = c
